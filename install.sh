@@ -31,10 +31,6 @@ echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/so
 sudo apt-get update && sudo apt-get install spotify-client || { echo "❌ Failed to install Spotify. Exiting..."; exit 1; }
 echo "✅ Spotify installed."
 
-# install Spicetify
-curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
-curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
-
 # install Discord
 DISCORD_PATH="/usr/share/discord/resources/build_info.json"
 DISCORD_DOWNLOAD_URL="https://discord.com/api/download/stable?platform=linux&format=deb"
@@ -97,6 +93,18 @@ cp background.png "$REAL_USER_HOME/Pictures/background.png" || { echo "❌ Faile
 sed "s|/home/charlie|$REAL_USER_HOME|g" .config/plasmarc > "$REAL_USER_HOME/.config/plasmarc" || { echo "❌ Failed to copy plasmarc. Exiting..."; exit 1; }
 chown "$SUDO_USER:$SUDO_USER" "$REAL_USER_HOME/.config/plasmarc"
 echo "✅ Background set."
+
+# Spicetify
+curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
+sudo chmod a+wr /usr/share/spotify
+sudo chmod a+wr /usr/share/spotify/Apps -R
+spicetify
+cp .config/Spicetify/Themes/sleek "$REAL_USER_HOME/.config/spicetify/Themes/" || { echo "❌ Failed to copy Spicetify theme. Exiting..."; exit 1; }
+spicetify config current_theme sleek
+spicetify config color_scheme Psycho
+spicetify backup apply || { echo "❌ Failed to apply Spicetify configuration. Exiting..."; exit 1; }
+echo "✅ Spicetify configured."
 
 # font 
 # (font selection in kdeglobals)
