@@ -1,2 +1,2 @@
-# thinkRed
+# think
 laptop
