@@ -80,6 +80,12 @@ echo "✅ Inkscape installed."
 
 echo "📩 Installing dotfiles..."
 
+# install widgets
+mkdir -p "$REAL_USER_HOME/.local/share/plasma/plasmoids" || { echo "❌ Failed to create plasmoids directory. Exiting..."; exit 1;
+cp .local/share/plasma/plasmoids/* "$REAL_USER_HOME/.local/share/plasma/plasmoids/" || { echo "❌ Failed to copy plasmoids. Exiting..."; exit 1; }
+# TODO: set widget locations?
+echo "✅ Widgets installed."
+
 # configure Firefox ESR
 mkdir -p "$REAL_USER_HOME/.mozilla/firefox/4cjgmrsp.default-esr" || { echo "❌ Failed to create Firefox directories. Exiting..."; exit 1; }
 cp FirefoxESR/profiles.ini "$REAL_USER_HOME/.mozilla/firefox/profiles.ini" || { echo "❌ Failed to copy profiles.ini. Exiting..."; exit 1; }
@@ -115,6 +121,10 @@ echo "✅ Fonts installed."
 
 cp .config/kdeglobals "$REAL_USER_HOME/.config/kdeglobals" || { echo "❌ Failed to copy kdeglobals. Exiting..."; exit 1; }
 chown "$SUDO_USER:$SUDO_USER" "$REAL_USER_HOME/.config/kdeglobals"
+
+
+# panels
+# ~/.config/plasma-org.kde.plasma.desktop-appletsrc This has your panel and widget setup.
 
 
 echo "🎉 Installation completed successfully!"
